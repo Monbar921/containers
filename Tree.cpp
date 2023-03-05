@@ -6,19 +6,6 @@ Tree::Tree() {}
 
 Tree::~Tree() { freeTree(); }
 
-void Tree::deleteNode(Node *node) {
-  // if (node->left != nullptr) {
-  //   delete node->left;
-  // }
-  // if (node->right != nullptr) {
-  //   delete node->right;
-  // }
-
-  if (node != nullptr) {
-    delete node;
-  }
-}
-
 Tree::Node *Tree::initializeNode(Node *node, Node *nodeParent, Node *nodeLeft,
                                  Node *nodeRight, int value, NodeColor color) {
   node = new Node;
@@ -61,8 +48,15 @@ void Tree::insert(int key) {
     // std::cout << "Parent - " << node->parent->data << "\n";
     // }
     // std::cout << node->data << "\n";
+        if(key == 55){
+    std::cerr << "out  - cerr " << node->parent->data << "\n";
+    }
     insertRebalance(node);
-    // std::cout << "out  - " << node->data << "\n";
+        if(key == 55){
+    std::cerr << "out  - cerr " << node->parent->data << "\n";
+    }
+
+
   } else {
     if (node != nullptr) {
       delete node;
@@ -71,8 +65,8 @@ void Tree::insert(int key) {
 }
 
 Tree::Node *Tree::findGrandparent(Node *node) {
-  Node *grandparent = NULL;
-  if (node != NULL && node->parent != NULL) {
+  Node *grandparent = nullptr;
+  if (node != nullptr && node->parent != nullptr) {
     grandparent = node->parent->parent;
   }
   return grandparent;
@@ -80,8 +74,8 @@ Tree::Node *Tree::findGrandparent(Node *node) {
 
 Tree::Node *Tree::findUncle(Node *node) {
   Node *grandparent = findGrandparent(node);
-  Node *uncle = NULL;
-  if (grandparent != NULL) {
+  Node *uncle = nullptr;
+  if (grandparent != nullptr) {
     if (node->parent = grandparent->left) {
       uncle = grandparent->right;
     } else {
@@ -104,8 +98,11 @@ void Tree::insertRebalance(Node *node) {
 
 void Tree::uncleAndParentRed(Node *node) {
   Node *uncle = findUncle(node);
-  Node *grandparent = NULL;
-  if ((uncle != NULL) && (uncle->color == RED)) {
+  Node *grandparent = nullptr;
+  if ((uncle != nullptr) && (uncle->color == RED)) {
+            if(node->data == 55){
+    std::cerr << "1111 \n";
+    }
     node->parent->color = BLACK;
     uncle->color = BLACK;
     grandparent = findGrandparent(node);
@@ -201,7 +198,6 @@ void Tree::printHelper(Node *printNode, std::string indent, bool isRight) {
       std::cerr << "L----";
       indent += "|  ";
     }
-
     std::string sColor = printNode->color ? "RED" : "BLACK";
     std::cerr << printNode->data << "(" << sColor << ")" << std::endl;
     printHelper(printNode->left, indent, false);
