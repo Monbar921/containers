@@ -46,6 +46,7 @@ class Tree {
   void rotateTreeRight(Node* node);
 
   void printHelper(Node* printNode, std::string indent, bool isRight);
+  void freeTree();
 };
 }  // namespace s21
 

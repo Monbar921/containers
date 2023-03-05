@@ -10,5 +10,5 @@ int main(){
   tree.insert(1009);
   tree.insert(12);
   tree.insert(3);
- tree.printTree();
+//  tree.printTree();
 }
