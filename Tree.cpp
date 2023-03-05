@@ -57,9 +57,16 @@ void Tree::insert(int key) {
     } else {
       y->right = node;
     }
+    // if(node->parent != nullptr){
+    // std::cout << "Parent - " << node->parent->data << "\n";
+    // }
+    // std::cout << node->data << "\n";
     insertRebalance(node);
+    // std::cout << "out  - " << node->data << "\n";
   } else {
-    deleteNode(node);
+    if (node != nullptr) {
+      delete node;
+    }
   }
 }
 
@@ -89,7 +96,7 @@ void Tree::insertRebalance(Node *node) {
     node->color = BLACK;
   } else {
     if (node->parent->color == RED) {
-      std::cout << "dfdfd\n";
+      // std::cout << "dfdfd\n";
       uncleAndParentRed(node);
     }
   }
@@ -186,17 +193,17 @@ void Tree::printTree() {
 
 void Tree::printHelper(Node *printNode, std::string indent, bool isRight) {
   if (printNode != nullptr) {
-    std::cout << indent;
+    std::cerr << indent;
     if (isRight) {
-      std::cout << "R----";
+      std::cerr << "R----";
       indent += "   ";
     } else {
-      std::cout << "L----";
+      std::cerr << "L----";
       indent += "|  ";
     }
 
     std::string sColor = printNode->color ? "RED" : "BLACK";
-    std::cout << printNode->data << "(" << sColor << ")" << std::endl;
+    std::cerr << printNode->data << "(" << sColor << ")" << std::endl;
     printHelper(printNode->left, indent, false);
     printHelper(printNode->right, indent, true);
   }
@@ -210,7 +217,6 @@ void Tree::freeTree() {
     } else if (temp->left == nullptr && temp->right != nullptr) {
       temp = temp->right;
     } else {
-      std::cerr << "jojho\n" << temp->data << "\n";
       Node *temp_parent = temp->parent;
       bool is_left_child = true;
       if (temp_parent->right == temp) {
