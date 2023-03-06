@@ -191,8 +191,10 @@ class RedBlackTree {
     NodePtr u;
     while (k->parent->color == 1) {
       if (k->parent == k->parent->parent->right) {
+
         u = k->parent->parent->left;
         if (u->color == 1) {
+          
           u->color = 0;
           k->parent->color = 0;
           k->parent->parent->color = 1;
@@ -391,6 +393,7 @@ class RedBlackTree {
     }
 
     insertFix(node);
+
   }
 
   NodePtr getRoot() {

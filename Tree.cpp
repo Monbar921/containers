@@ -5,6 +5,7 @@ using namespace s21;
 Tree::Tree() {}
 
 Tree::~Tree() { freeTree(); }
+// Tree::~Tree() {  }
 
 Tree::Node *Tree::initializeNode(Node *node, Node *nodeParent, Node *nodeLeft,
                                  Node *nodeRight, int value, NodeColor color) {
@@ -48,14 +49,14 @@ void Tree::insert(int key) {
     // std::cout << "Parent - " << node->parent->data << "\n";
     // }
     // std::cout << node->data << "\n";
-        if(key == 55){
-    std::cerr << "out  - cerr " << node->parent->data << "\n";
-    }
+    // if (key == 55) {
+    //   std::cerr << "out  - cerr " << node->parent->data << "\n";
+    // }
     insertRebalance(node);
-        if(key == 55){
-    std::cerr << "out  - cerr " << node->parent->data << "\n";
-    }
 
+    // if (key == 55) {
+    //   std::cerr << "out  - cerr " << node->parent->data << "\n";
+    // }
 
   } else {
     if (node != nullptr) {
@@ -76,7 +77,7 @@ Tree::Node *Tree::findUncle(Node *node) {
   Node *grandparent = findGrandparent(node);
   Node *uncle = nullptr;
   if (grandparent != nullptr) {
-    if (node->parent = grandparent->left) {
+    if (node->parent == grandparent->left) {
       uncle = grandparent->right;
     } else {
       uncle = grandparent->left;
@@ -86,27 +87,29 @@ Tree::Node *Tree::findUncle(Node *node) {
 }
 
 void Tree::insertRebalance(Node *node) {
+  
   if (node->parent == nullptr) {
     node->color = BLACK;
   } else {
     if (node->parent->color == RED) {
-      // std::cout << "dfdfd\n";
+      
       uncleAndParentRed(node);
     }
   }
 }
 
 void Tree::uncleAndParentRed(Node *node) {
+    //                             if (node->data == 55) {
+    //   std::cerr << "kk " << node->parent->data <<  "\n";
+    // }
   Node *uncle = findUncle(node);
   Node *grandparent = nullptr;
   if ((uncle != nullptr) && (uncle->color == RED)) {
-            if(node->data == 55){
-    std::cerr << "1111 \n";
-    }
     node->parent->color = BLACK;
     uncle->color = BLACK;
     grandparent = findGrandparent(node);
     grandparent->color = RED;
+
     insertRebalance(grandparent);
   } else {
     rotateTreeRightChild(node);
@@ -192,14 +195,14 @@ void Tree::printHelper(Node *printNode, std::string indent, bool isRight) {
   if (printNode != nullptr) {
     std::cerr << indent;
     if (isRight) {
-      std::cerr << "R----";
+      std::cout << "R----";
       indent += "   ";
     } else {
-      std::cerr << "L----";
+      std::cout << "L----";
       indent += "|  ";
     }
     std::string sColor = printNode->color ? "RED" : "BLACK";
-    std::cerr << printNode->data << "(" << sColor << ")" << std::endl;
+    std::cout << printNode->data << "(" << sColor << ")" << std::endl;
     printHelper(printNode->left, indent, false);
     printHelper(printNode->right, indent, true);
   }
@@ -208,24 +211,29 @@ void Tree::printHelper(Node *printNode, std::string indent, bool isRight) {
 void Tree::freeTree() {
   Node *temp = root;
   while ((root->left != nullptr || root->right != nullptr)) {
+    // std::cout << "1 "  << temp->data << "\n";
     if (temp->left != nullptr) {
       temp = temp->left;
     } else if (temp->left == nullptr && temp->right != nullptr) {
       temp = temp->right;
     } else {
+          // std::cout << "delete - " << temp->data << "\n";
       Node *temp_parent = temp->parent;
+      // std::cout << "parent - " << temp_parent->data << "\n";
       bool is_left_child = true;
       if (temp_parent->right == temp) {
         is_left_child = false;
       }
       delete temp;
       temp = temp_parent;
+                // std::cout << "delete - " << temp->data << "\n";
       if (is_left_child) {
         temp->left = nullptr;
       } else {
         temp->right = nullptr;
       }
     }
+    // std::cout << "2 - " << temp->data << "\n";
   }
   delete root;
 }
