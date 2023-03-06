@@ -21,6 +21,7 @@ class Tree {
   ~Tree();
 
   void insert(int key);
+  void erase(int key);
   void printTree();
 
  private:
@@ -40,10 +41,15 @@ class Tree {
   void uncleAndParentRed(Node* node);
   Node* findGrandparent(Node* node);
   Node* findUncle(Node* node);
+  Node* findSibling(Node *n);
   void rotateTreeRightChild(Node* node);
   void rotateTreeLeftChild(Node* node);
   void rotateTreeLeft(Node* node);
   void rotateTreeRight(Node* node);
+  void transplantNodes(Node* whatReplace, Node* toReplace);
+  void eraseFunction(Node* findNode);
+  Node* findMax(Node *node);
+  void changeNodes(Node* findNode, Node* child);
 
   void printHelper(Node* printNode, std::string indent, bool isRight);
   void freeTree();

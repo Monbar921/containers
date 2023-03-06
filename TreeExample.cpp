@@ -142,7 +142,6 @@ class RedBlackTree {
       if (node->data == key) {
         z = node;
       }
-
       if (node->data <= key) {
         node = node->right;
       } else {
