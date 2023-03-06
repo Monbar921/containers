@@ -202,47 +202,51 @@ void Tree::erase(int key) {
 
 void Tree::eraseFunction(Node *findNode) {
   if (findNode->left == nullptr && findNode->right == nullptr) {
-    if(findNode->color == RED){
-      delete findNode;
-      findNode = nullptr;
-    } else {
-
+    delete findNode;
+    findNode = nullptr;
+    if (findNode->color == BLACK) {
     }
   } else if (findNode->left == nullptr && findNode->right != nullptr) {
     changeNodes(findNode, findNode->right);
   } else if (findNode->left != nullptr && findNode->right == nullptr) {
     changeNodes(findNode, findNode->left);
   } else {
+    Node *maxNode = findMax(findNode->left);
+    findNode->data = maxNode->data;
+    eraseFunction(maxNode);
   }
 }
 
-void Tree::changeNodes(Node* findNode, Node* child){
-    Node* findParent = findNode->parent;
-    if(findParent->left == findNode){
-      findParent->left = child;
-    } else {
-      findParent->right = child;
-    }
-    delete findNode;
-    findNode = child;
-    findNode->parent = findParent;
-    findNode->color = BLACK;
+void Tree::changeNodes(Node *findNode, Node *child) {
+  Node *findParent = findNode->parent;
+  if (findParent->left == findNode) {
+    findParent->left = child;
+  } else {
+    findParent->right = child;
+  }
+  delete findNode;
+  findNode = child;
+  findNode->parent = findParent;
+  findNode->color = BLACK;
 
-    if(findParent == nullptr){
-      root = findNode;
-    }
-    // std::cerr << findNode->data << " " << findNode->parent->data << " " << findNode->left << " " << findNode->right << " " << "\n"; 
+  if (findParent == nullptr) {
+    root = findNode;
+  }
+  // std::cerr << findNode->data << " " << findNode->parent->data << " " <<
+  // findNode->left << " " << findNode->right << " " << "\n";
 }
 
 Tree::Node *Tree::findMax(Node *node) {
   Node *temp = node;
-  while (temp != nullptr) {
+  while (temp->right != nullptr) {
     temp = temp->right;
-    if(temp->right == nullptr){
-      break;
-    }
   }
   return temp;
+}
+
+void Tree::deleteNode(Node *node) {
+  delete node;
+  node = nullptr;
 }
 
 // if (findNode == nullptr) {
