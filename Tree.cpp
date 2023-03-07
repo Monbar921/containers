@@ -200,11 +200,108 @@ void Tree::erase(int key) {
   }
 }
 
+void Tree::deleteRebalance(Node *node) {
+  if (node->parent != nullptr) {
+    deleteCase1(node);
+  }
+}
+
+void Tree::deleteCase1(Node *node) {
+  Node *sibling = findSibling(node);
+
+  if (sibling->color == RED) {
+    node->parent->color = RED;
+    sibling->color = BLACK;
+    if (node == node->parent->left) {
+      rotateTreeLeft(node->parent);
+    } else {
+      rotateTreeRight(node->parent);
+    }
+  }
+
+  deleteCase2(node);
+}
+
+void Tree::deleteCase2(Node *node) {
+  Node *sibling = findSibling(node);
+
+  if (node->parent->color == BLACK && sibling->color == BLACK &&
+      ((sibling->left == nullptr || sibling->left->color == BLACK) &&
+       (sibling->right == nullptr || sibling->right->color == BLACK))) {
+    sibling->color = RED;
+    std::cerr << node->parent->data << " dfdf\n";
+    deleteRebalance(node->parent);
+  } else {
+    
+    deleteCase3(node);
+    
+  }
+}
+
+void Tree::deleteCase3(Node *node) {
+  Node *sibling = findSibling(node);
+  
+  if (node->parent->color == RED && sibling->color == BLACK &&
+      (sibling->left == nullptr || sibling->left->color == BLACK) && (sibling->right == nullptr || sibling->right->color == BLACK)) {
+        
+    sibling->color = RED;
+    node->parent->color = BLACK;
+  } else {
+    
+    deleteCase4(node);
+  }
+  
+}
+
+void Tree::deleteCase4(Node *node) {
+  Node *sibling = findSibling(node);
+  if (sibling->color == BLACK) {
+    if (node == node->parent->left &&
+        (sibling->right == nullptr || sibling->right->color == BLACK) &&
+        sibling->left->color == RED) {
+      sibling->color = RED;
+      sibling->left->color = BLACK;
+      rotateTreeRight(sibling);
+    } else if (node == node->parent->right && sibling->left->color == BLACK &&
+               sibling->right->color == RED) {
+      sibling->color = RED;
+      sibling->right->color = BLACK;
+      rotateTreeLeft(sibling);
+    }
+  }
+  deleteCase5(node);
+}
+
+void Tree::deleteCase5(Node *node) {
+  Node *sibling = findSibling(node);
+  sibling->color = node->parent->color;
+  node->parent->color = BLACK;
+  if (node == node->parent->left) {
+    sibling->right->color = BLACK;
+    rotateTreeLeft(node->parent);
+  } else {
+    sibling->left->color = BLACK;
+    rotateTreeRight(node->parent);
+  }
+}
+
 void Tree::eraseFunction(Node *findNode) {
   if (findNode->left == nullptr && findNode->right == nullptr) {
-    delete findNode;
-    findNode = nullptr;
+    Node *parent = findNode->parent;
     if (findNode->color == BLACK) {
+
+      deleteRebalance(findNode);
+      
+      if (findNode == parent->left) {
+        deleteNode(&findNode);
+        parent->left = nullptr;
+      } else {
+        deleteNode(&findNode);
+        parent->right = nullptr;
+      }
+
+    } else {
+      deleteNode(&findNode);
     }
   } else if (findNode->left == nullptr && findNode->right != nullptr) {
     changeNodes(findNode, findNode->right);
@@ -216,6 +313,8 @@ void Tree::eraseFunction(Node *findNode) {
     eraseFunction(maxNode);
   }
 }
+
+void Tree::videoRebalance(Node *findNode) {}
 
 void Tree::changeNodes(Node *findNode, Node *child) {
   Node *findParent = findNode->parent;
@@ -244,9 +343,9 @@ Tree::Node *Tree::findMax(Node *node) {
   return temp;
 }
 
-void Tree::deleteNode(Node *node) {
-  delete node;
-  node = nullptr;
+void Tree::deleteNode(Node **node) {
+  delete *node;
+  *node = nullptr;
 }
 
 // if (findNode == nullptr) {

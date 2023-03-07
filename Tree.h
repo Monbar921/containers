@@ -35,7 +35,7 @@ class Tree {
                        Node* nodeRight, int value, NodeColor color);
 
   void insertRebalance(Node* node);
-  void deleteNode(Node* node);
+  void deleteNode(Node** node);
 
   void nodeIsRoot(Node* node);
   void uncleAndParentRed(Node* node);
@@ -50,6 +50,14 @@ class Tree {
   void eraseFunction(Node* findNode);
   Node* findMax(Node *node);
   void changeNodes(Node* findNode, Node* child);
+  void deleteRebalance(Node* node);
+  void deleteCase1(Node* node);
+  void deleteCase2(Node* node);
+  void deleteCase3(Node* node);
+  void deleteCase4(Node* node);
+  void deleteCase5(Node* node);
+
+  void videoRebalance(Node *findNode);
 
   void printHelper(Node* printNode, std::string indent, bool isRight);
   void freeTree();
