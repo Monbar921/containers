@@ -4,6 +4,11 @@ using namespace s21;
 
 Tree::Tree() {}
 
+template<typename Type> Type Tree::max(Type a, Type b)
+{
+	return (a >= b ? a : b);
+}
+
 Tree::~Tree() { freeTree(); }
 // Tree::~Tree() {  }
 
@@ -224,33 +229,27 @@ void Tree::deleteCase1(Node *node) {
 
 void Tree::deleteCase2(Node *node) {
   Node *sibling = findSibling(node);
-
   if (node->parent->color == BLACK && sibling->color == BLACK &&
       ((sibling->left == nullptr || sibling->left->color == BLACK) &&
        (sibling->right == nullptr || sibling->right->color == BLACK))) {
     sibling->color = RED;
-    std::cerr << node->parent->data << " dfdf\n";
     deleteRebalance(node->parent);
   } else {
-    
     deleteCase3(node);
-    
   }
 }
 
 void Tree::deleteCase3(Node *node) {
   Node *sibling = findSibling(node);
-  
+
   if (node->parent->color == RED && sibling->color == BLACK &&
-      (sibling->left == nullptr || sibling->left->color == BLACK) && (sibling->right == nullptr || sibling->right->color == BLACK)) {
-        
+      (sibling->left == nullptr || sibling->left->color == BLACK) &&
+      (sibling->right == nullptr || sibling->right->color == BLACK)) {
     sibling->color = RED;
     node->parent->color = BLACK;
   } else {
-    
     deleteCase4(node);
   }
-  
 }
 
 void Tree::deleteCase4(Node *node) {
@@ -289,19 +288,14 @@ void Tree::eraseFunction(Node *findNode) {
   if (findNode->left == nullptr && findNode->right == nullptr) {
     Node *parent = findNode->parent;
     if (findNode->color == BLACK) {
-
       deleteRebalance(findNode);
-      
-      if (findNode == parent->left) {
-        deleteNode(&findNode);
-        parent->left = nullptr;
-      } else {
-        deleteNode(&findNode);
-        parent->right = nullptr;
-      }
-
+    }
+    if (findNode == parent->left) {
+      deleteNode(&findNode);
+      parent->left = nullptr;
     } else {
       deleteNode(&findNode);
+      parent->right = nullptr;
     }
   } else if (findNode->left == nullptr && findNode->right != nullptr) {
     changeNodes(findNode, findNode->right);
@@ -348,23 +342,6 @@ void Tree::deleteNode(Node **node) {
   *node = nullptr;
 }
 
-// if (findNode == nullptr) {
-//   std::cout << "Key not found in the tree" << std::endl;
-// } else {
-//   NodeColor color = findNode->color;
-//   Node *x = nullptr;
-//   if (findNode->left == nullptr) {
-//     x = findNode->right;
-//     transplantNodes(findNode, findNode->right);
-//   } else if (findNode->right == nullptr) {
-//     x = findNode->right;
-//     transplantNodes(findNode, findNode->left);
-//   } else {
-//   }
-//   delete findNode;
-//   // std::cout << findNode->data << std::endl;
-// }
-
 void Tree::transplantNodes(Node *whatReplace, Node *toReplace) {
   if (whatReplace->parent == nullptr) {
     root = toReplace;
@@ -406,7 +383,6 @@ void Tree::freeTree() {
     if (temp->left != nullptr) {
       temp = temp->left;
     } else if (temp->left == nullptr && temp->right != nullptr) {
-      // std::cerr << temp->right->data << std::endl;
       temp = temp->right;
     } else {
       Node *temp_parent = temp->parent;

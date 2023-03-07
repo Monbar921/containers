@@ -5,6 +5,7 @@
 // #include <cstring>
 
 namespace s21 {
+template<typename Type>
 class Tree {
   enum NodeColor { BLACK, RED };
 
@@ -23,6 +24,7 @@ class Tree {
   void insert(int key);
   void erase(int key);
   void printTree();
+    template<typename Type> Type max(Type a, Type b);
 
  private:
   // data members
@@ -61,7 +63,9 @@ class Tree {
 
   void printHelper(Node* printNode, std::string indent, bool isRight);
   void freeTree();
+
 };
+#include "Tree.cpp"
 }  // namespace s21
 
 #endif  // SRC_TREE_H_
