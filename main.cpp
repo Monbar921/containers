@@ -1,4 +1,5 @@
 #include "Tree.h"
+#include "Tree.cpp"
 
 using namespace s21;
 
@@ -7,14 +8,15 @@ using namespace s21;
 
 int main() {
   Tree<int> tree;
+  // tree.set(12);
   // std::cout << tree.max<int>(1, 2) << "\n";
-  // tree.insert(100);
-  // tree.insert(56);
-  // tree.insert(100);
-  // tree.insert(1009);
-  // tree.insert(12);
-  // tree.insert(3);
-  // tree.insert(55);
+  tree.insert(100);
+  tree.insert(56);
+  tree.insert(100);
+  tree.insert(1009);
+  tree.insert(12);
+  tree.insert(3);
+  tree.insert(55);
   // // tree.insert(5);
 
   // // tree.erase(3);
@@ -22,7 +24,8 @@ int main() {
   // // tree.erase(55);
   // tree.erase(100);
   // // tree.erase(1009);
-  // tree.printTree();
+  tree.printTree();
+  std::cout << tree.empty() << "\n";
 
 //   std::set<int> aa;
 //   aa.insert(100);

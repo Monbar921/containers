@@ -2,18 +2,18 @@
 
 using namespace s21;
 
-Tree::Tree() {}
+template <class T>
+Tree<T>::Tree() {}
 
-template<typename Type> Type Tree::max(Type a, Type b)
-{
-	return (a >= b ? a : b);
+template <class T>
+Tree<T>::~Tree() {
+  freeTree();
 }
 
-Tree::~Tree() { freeTree(); }
-// Tree::~Tree() {  }
-
-Tree::Node *Tree::initializeNode(Node *node, Node *nodeParent, Node *nodeLeft,
-                                 Node *nodeRight, int value, NodeColor color) {
+template <class T>
+typename Tree<T>::Node *Tree<T>::initializeNode(Node *node, Node *nodeParent,
+                                                Node *nodeLeft, Node *nodeRight,
+                                                int value, NodeColor color) {
   node = new Node;
   node->data = value;
   node->parent = nodeParent;
@@ -23,7 +23,8 @@ Tree::Node *Tree::initializeNode(Node *node, Node *nodeParent, Node *nodeLeft,
   return node;
 }
 
-void Tree::insert(int key) {
+template <class T>
+void Tree<T>::insert(T key) {
   Node *node = initializeNode(node, nullptr, nullptr, nullptr, key, RED);
 
   Node *y = nullptr;
@@ -51,6 +52,7 @@ void Tree::insert(int key) {
       y->right = node;
     }
     insertRebalance(node);
+    setSize++;
   } else {
     if (node != nullptr) {
       delete node;
@@ -58,7 +60,8 @@ void Tree::insert(int key) {
   }
 }
 
-Tree::Node *Tree::findGrandparent(Node *node) {
+template <class T>
+typename Tree<T>::Node *Tree<T>::findGrandparent(Node *node) {
   Node *grandparent = nullptr;
   if (node != nullptr && node->parent != nullptr) {
     grandparent = node->parent->parent;
@@ -66,7 +69,8 @@ Tree::Node *Tree::findGrandparent(Node *node) {
   return grandparent;
 }
 
-Tree::Node *Tree::findUncle(Node *node) {
+template <class T>
+typename Tree<T>::Node *Tree<T>::findUncle(Node *node) {
   Node *grandparent = findGrandparent(node);
   Node *uncle = nullptr;
   if (grandparent != nullptr) {
@@ -79,7 +83,8 @@ Tree::Node *Tree::findUncle(Node *node) {
   return uncle;
 }
 
-Tree::Node *Tree::findSibling(Node *node) {
+template <class T>
+typename Tree<T>::Node *Tree<T>::findSibling(Node *node) {
   Node *output = nullptr;
   if (node == node->parent->left) {
     output = node->parent->right;
@@ -89,7 +94,8 @@ Tree::Node *Tree::findSibling(Node *node) {
   return output;
 }
 
-void Tree::insertRebalance(Node *node) {
+template <class T>
+void Tree<T>::insertRebalance(Node *node) {
   if (node->parent == nullptr) {
     node->color = BLACK;
   } else {
@@ -99,7 +105,8 @@ void Tree::insertRebalance(Node *node) {
   }
 }
 
-void Tree::uncleAndParentRed(Node *node) {
+template <class T>
+void Tree<T>::uncleAndParentRed(Node *node) {
   Node *uncle = findUncle(node);
   Node *grandparent = nullptr;
   if ((uncle != nullptr) && (uncle->color == RED)) {
@@ -113,7 +120,8 @@ void Tree::uncleAndParentRed(Node *node) {
   }
 }
 
-void Tree::rotateTreeRightChild(Node *node) {
+template <class T>
+void Tree<T>::rotateTreeRightChild(Node *node) {
   Node *grandparent = findGrandparent(node);
   if (grandparent != nullptr) {
     if ((node == node->parent->right) && (node->parent == grandparent->left)) {
@@ -128,7 +136,8 @@ void Tree::rotateTreeRightChild(Node *node) {
   }
 }
 
-void Tree::rotateTreeLeftChild(Node *node) {
+template <class T>
+void Tree<T>::rotateTreeLeftChild(Node *node) {
   Node *grandparent = findGrandparent(node);
   if (grandparent != nullptr) {
     node->parent->color = BLACK;
@@ -142,7 +151,8 @@ void Tree::rotateTreeLeftChild(Node *node) {
   }
 }
 
-void Tree::rotateTreeLeft(Node *node) {
+template <class T>
+void Tree<T>::rotateTreeLeft(Node *node) {
   Node *pivot = node->right;
   pivot->parent = node->parent;
   if (node->parent != nullptr) {
@@ -162,7 +172,8 @@ void Tree::rotateTreeLeft(Node *node) {
   pivot->left = node;
 }
 
-void Tree::rotateTreeRight(Node *node) {
+template <class T>
+void Tree<T>::rotateTreeRight(Node *node) {
   Node *pivot = node->left;
   pivot->parent = node->parent;
   if (node->parent != nullptr) {
@@ -181,7 +192,8 @@ void Tree::rotateTreeRight(Node *node) {
   pivot->right = node;
 }
 
-void Tree::erase(int key) {
+template <class T>
+void Tree<T>::erase(T key) {
   if (root != nullptr) {
     Node *tempTree = root;
     Node *findNode = nullptr;
@@ -197,21 +209,22 @@ void Tree::erase(int key) {
       }
     }
 
-    if (findNode == nullptr) {
-      std::cout << "Key not found in the tree" << std::endl;
-    } else {
+    if (findNode != nullptr) {
       eraseFunction(findNode);
+      setSize--;
     }
   }
 }
 
-void Tree::deleteRebalance(Node *node) {
+template <class T>
+void Tree<T>::deleteRebalance(Node *node) {
   if (node->parent != nullptr) {
     deleteCase1(node);
   }
 }
 
-void Tree::deleteCase1(Node *node) {
+template <class T>
+void Tree<T>::deleteCase1(Node *node) {
   Node *sibling = findSibling(node);
 
   if (sibling->color == RED) {
@@ -227,7 +240,8 @@ void Tree::deleteCase1(Node *node) {
   deleteCase2(node);
 }
 
-void Tree::deleteCase2(Node *node) {
+template <class T>
+void Tree<T>::deleteCase2(Node *node) {
   Node *sibling = findSibling(node);
   if (node->parent->color == BLACK && sibling->color == BLACK &&
       ((sibling->left == nullptr || sibling->left->color == BLACK) &&
@@ -239,7 +253,8 @@ void Tree::deleteCase2(Node *node) {
   }
 }
 
-void Tree::deleteCase3(Node *node) {
+template <class T>
+void Tree<T>::deleteCase3(Node *node) {
   Node *sibling = findSibling(node);
 
   if (node->parent->color == RED && sibling->color == BLACK &&
@@ -252,7 +267,8 @@ void Tree::deleteCase3(Node *node) {
   }
 }
 
-void Tree::deleteCase4(Node *node) {
+template <class T>
+void Tree<T>::deleteCase4(Node *node) {
   Node *sibling = findSibling(node);
   if (sibling->color == BLACK) {
     if (node == node->parent->left &&
@@ -271,7 +287,8 @@ void Tree::deleteCase4(Node *node) {
   deleteCase5(node);
 }
 
-void Tree::deleteCase5(Node *node) {
+template <class T>
+void Tree<T>::deleteCase5(Node *node) {
   Node *sibling = findSibling(node);
   sibling->color = node->parent->color;
   node->parent->color = BLACK;
@@ -284,7 +301,8 @@ void Tree::deleteCase5(Node *node) {
   }
 }
 
-void Tree::eraseFunction(Node *findNode) {
+template <class T>
+void Tree<T>::eraseFunction(Node *findNode) {
   if (findNode->left == nullptr && findNode->right == nullptr) {
     Node *parent = findNode->parent;
     if (findNode->color == BLACK) {
@@ -308,9 +326,11 @@ void Tree::eraseFunction(Node *findNode) {
   }
 }
 
-void Tree::videoRebalance(Node *findNode) {}
+template <class T>
+void Tree<T>::videoRebalance(Node *findNode) {}
 
-void Tree::changeNodes(Node *findNode, Node *child) {
+template <class T>
+void Tree<T>::changeNodes(Node *findNode, Node *child) {
   Node *findParent = findNode->parent;
   if (findParent->left == findNode) {
     findParent->left = child;
@@ -325,11 +345,10 @@ void Tree::changeNodes(Node *findNode, Node *child) {
   if (findParent == nullptr) {
     root = findNode;
   }
-  // std::cerr << findNode->data << " " << findNode->parent->data << " " <<
-  // findNode->left << " " << findNode->right << " " << "\n";
 }
 
-Tree::Node *Tree::findMax(Node *node) {
+template <class T>
+typename Tree<T>::Node *Tree<T>::findMax(Node *node) {
   Node *temp = node;
   while (temp->right != nullptr) {
     temp = temp->right;
@@ -337,12 +356,14 @@ Tree::Node *Tree::findMax(Node *node) {
   return temp;
 }
 
-void Tree::deleteNode(Node **node) {
+template <class T>
+void Tree<T>::deleteNode(Node **node) {
   delete *node;
   *node = nullptr;
 }
 
-void Tree::transplantNodes(Node *whatReplace, Node *toReplace) {
+template <class T>
+void Tree<T>::transplantNodes(Node *whatReplace, Node *toReplace) {
   if (whatReplace->parent == nullptr) {
     root = toReplace;
   } else if (whatReplace == whatReplace->parent->left) {
@@ -353,14 +374,16 @@ void Tree::transplantNodes(Node *whatReplace, Node *toReplace) {
   toReplace->parent = whatReplace->parent;
 }
 
-void Tree::printTree() {
+template <class T>
+void Tree<T>::printTree() {
   if (root != nullptr) {
     std::string temp = "";
     printHelper(root, temp, true);
   }
 }
 
-void Tree::printHelper(Node *printNode, std::string indent, bool isRight) {
+template <class T>
+void Tree<T>::printHelper(Node *printNode, std::string indent, bool isRight) {
   if (printNode != nullptr) {
     std::cerr << indent;
     if (isRight) {
@@ -377,9 +400,10 @@ void Tree::printHelper(Node *printNode, std::string indent, bool isRight) {
   }
 }
 
-void Tree::freeTree() {
+template <class T>
+void Tree<T>::freeTree() {
   Node *temp = root;
-  while ((root->left != nullptr || root->right != nullptr) && temp != nullptr) {
+  while (temp != nullptr && (root->left != nullptr || root->right != nullptr)) {
     if (temp->left != nullptr) {
       temp = temp->left;
     } else if (temp->left == nullptr && temp->right != nullptr) {
@@ -399,5 +423,17 @@ void Tree::freeTree() {
       }
     }
   }
-  delete root;
+  if (root != nullptr) {
+    delete root;
+  }
+}
+
+template <class T>
+size_t Tree<T>::size() {
+  return setSize;
+}
+
+template <class T>
+bool Tree<T>::empty() {
+  return (setSize == 0) ? true : false;
 }

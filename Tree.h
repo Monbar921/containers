@@ -5,12 +5,12 @@
 // #include <cstring>
 
 namespace s21 {
-template<typename Type>
+template<class T>
 class Tree {
   enum NodeColor { BLACK, RED };
 
   struct Node {
-    int data;
+    T data;
     Node* parent;
     Node* left;
     Node* right;
@@ -21,15 +21,17 @@ class Tree {
   Tree();
   ~Tree();
 
-  void insert(int key);
-  void erase(int key);
+  void insert(T key);
+  void erase(T key);
+  size_t size();
+  bool empty();
+
+
   void printTree();
-    template<typename Type> Type max(Type a, Type b);
 
  private:
   // data members
-
-  int heitht = 0;
+  size_t setSize = 0;
   Node* root = nullptr;
 
   // help functions
@@ -65,7 +67,7 @@ class Tree {
   void freeTree();
 
 };
-#include "Tree.cpp"
+
 }  // namespace s21
 
 #endif  // SRC_TREE_H_
