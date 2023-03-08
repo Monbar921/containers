@@ -1,4 +1,5 @@
 // #include "SetInterface.h"
+// #include "Tree.h"
 // #include "Tree.cpp"
 #include "s21_set.h"
 #include "s21_set.cpp"
@@ -14,12 +15,15 @@ int main() {
   std::cout << ddd.size() << "\n";
     std::cout << ddd.empty() << "\n";
   ddd.insert(100);
+  ddd.erase(100);
     std::cout << ddd.size() << "\n";
     std::cout << ddd.empty() << "\n";
+
   // Tree<int> tree;
-  // // tree.set(12);
-  // // std::cout << tree.max<int>(1, 2) << "\n";
+  // // // tree.set(12);
+  // // // std::cout << tree.max<int>(1, 2) << "\n";
   // tree.insert(100);
+  // tree.erase(100);
   // tree.insert(56);
   // tree.insert(100);
   // tree.insert(1009);

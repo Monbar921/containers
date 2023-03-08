@@ -212,6 +212,9 @@ void Tree<T>::erase(T key) {
     if (findNode != nullptr) {
       eraseFunction(findNode);
       treeSize--;
+      if(treeSize == 0) {
+        root = nullptr;
+      }
     }
   }
 }
@@ -306,9 +309,13 @@ void Tree<T>::eraseFunction(Node *findNode) {
   if (findNode->left == nullptr && findNode->right == nullptr) {
     Node *parent = findNode->parent;
     if (findNode->color == BLACK) {
+
       deleteRebalance(findNode);
     }
-    if (findNode == parent->left) {
+    std::cerr << findNode->data << "\n";
+    if(parent == nullptr){
+      deleteNode(&findNode);
+    }else if (findNode == parent->left) {
       deleteNode(&findNode);
       parent->left = nullptr;
     } else {

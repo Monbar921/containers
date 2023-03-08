@@ -14,7 +14,7 @@ void s21_set<T>::insert(T key) {
 
 template <class T>
 void s21_set<T>::erase(T key) {
-    
+    SetInterface<T>::tree.erase(key); 
 }
 
 template <class T>
