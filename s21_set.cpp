@@ -2,6 +2,7 @@
 
 using namespace s21;
 
+
 template <class T>
 s21_set<T>::s21_set() {
 
@@ -17,8 +18,7 @@ void s21_set<T>::erase(T key) {
     SetInterface<T>::tree.erase(key); 
 }
 
-template <class T>
-size_t s21_set<T>::size() {
+template <class T> typename SetInterface<T>::size_type s21_set<T>::size() {
     return SetInterface<T>::tree.treeSize;
 }
 
