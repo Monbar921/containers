@@ -1,7 +1,7 @@
 CC=gcc -std=c++17
 LIBS=-lstdc++ -g -lm
 LIBS_TEST=-lgtest -pthread -coverage
-SOURCES=Tree.cpp main.cpp
+SOURCES=Tree.cpp s21_set.cpp main.cpp
 TEST_SOURCE=tests.cpp
 
 all: build

@@ -2,11 +2,12 @@
 #define SRC_TREE_H_
 
 #include <iostream>
-// #include <cstring>
+#include "SetInterface.h"
 
 namespace s21 {
 template<class T>
 class Tree {
+  friend class SetInterface<T>;
   enum NodeColor { BLACK, RED };
 
   struct Node {
@@ -23,15 +24,12 @@ class Tree {
 
   void insert(T key);
   void erase(T key);
-  size_t size();
-  bool empty();
-
 
   void printTree();
 
  private:
   // data members
-  size_t setSize = 0;
+  size_t treeSize = 0;
   Node* root = nullptr;
 
   // help functions

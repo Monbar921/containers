@@ -52,7 +52,7 @@ void Tree<T>::insert(T key) {
       y->right = node;
     }
     insertRebalance(node);
-    setSize++;
+    treeSize++;
   } else {
     if (node != nullptr) {
       delete node;
@@ -211,7 +211,7 @@ void Tree<T>::erase(T key) {
 
     if (findNode != nullptr) {
       eraseFunction(findNode);
-      setSize--;
+      treeSize--;
     }
   }
 }
@@ -426,14 +426,4 @@ void Tree<T>::freeTree() {
   if (root != nullptr) {
     delete root;
   }
-}
-
-template <class T>
-size_t Tree<T>::size() {
-  return setSize;
-}
-
-template <class T>
-bool Tree<T>::empty() {
-  return (setSize == 0) ? true : false;
 }
