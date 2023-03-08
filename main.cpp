@@ -1,7 +1,7 @@
-#include "Tree.h"
+// #include "SetInterface.h"
 // #include "Tree.cpp"
-// #include "s21_set.h"
-// #include "s21_set.cpp"
+#include "s21_set.h"
+#include "s21_set.cpp"
 
 using namespace s21;
 
@@ -9,8 +9,13 @@ using namespace s21;
 // #include <iostream>
 
 int main() {
-  // s21_set<int> ddd;
-  // std::cout << ddd.size();
+  s21_set<int> ddd;
+
+  std::cout << ddd.size() << "\n";
+    std::cout << ddd.empty() << "\n";
+  ddd.insert(100);
+    std::cout << ddd.size() << "\n";
+    std::cout << ddd.empty() << "\n";
   // Tree<int> tree;
   // // tree.set(12);
   // // std::cout << tree.max<int>(1, 2) << "\n";

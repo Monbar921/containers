@@ -2,12 +2,12 @@
 #define SRC_TREE_H_
 
 #include <iostream>
-#include "SetInterface.h"
 
 namespace s21 {
 template<class T>
 class Tree {
-  friend class SetInterface<T>;
+  template<class> friend class SetInerface;
+          template<class> friend class s21_set;
   enum NodeColor { BLACK, RED };
 
   struct Node {

@@ -1,21 +1,23 @@
 #ifndef SRC_SETINTERFACE_H_
 #define SRC_SETINTERFACE_H_
+#include "Tree.cpp"
 #include "Tree.h"
-// #include "Tree.cpp"
 namespace s21 {
 
 template <class T>
 class SetInterface {
+  template <class>
+  friend class s21_set;
+
  public:
-  // virtual void insert(T key);
-  // virtual void erase(T key);
-  size_t size(){
-   return tree.treeSize;
-  }
-  // virtual bool empty();
+  virtual void insert(T key) = 0;
+  virtual void erase(T key) = 0;
+  virtual size_t size() = 0;
+  virtual bool empty() = 0;
 
  private:
   Tree<T> tree;
+  size_t x;
   // data members
 };
 
