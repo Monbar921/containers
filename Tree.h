@@ -2,12 +2,17 @@
 #define SRC_TREE_H_
 
 #include <iostream>
+// #include "SetIterator.h"
+// #include "SetIterator.cpp"
 
 namespace s21 {
-template<class T>
+template <class T>
 class Tree {
-  template<class> friend class SetInerface;
-          template<class> friend class s21_set;
+  // template <class>
+  // friend class SetInterface;
+  template <class>
+  friend class s21_set;
+
   enum NodeColor { BLACK, RED };
 
   struct Node {
@@ -32,6 +37,11 @@ class Tree {
   size_t treeSize = 0;
   Node* root = nullptr;
 
+  Node* begin = nullptr;
+  Node* end = nullptr;
+  // SetIterator<T> begin;
+
+
   // help functions
   Node* initializeNode(Node* node, Node* nodeParent, Node* nodeLeft,
                        Node* nodeRight, int value, NodeColor color);
@@ -43,14 +53,15 @@ class Tree {
   void uncleAndParentRed(Node* node);
   Node* findGrandparent(Node* node);
   Node* findUncle(Node* node);
-  Node* findSibling(Node *n);
+  Node* findSibling(Node* n);
   void rotateTreeRightChild(Node* node);
   void rotateTreeLeftChild(Node* node);
   void rotateTreeLeft(Node* node);
   void rotateTreeRight(Node* node);
   void transplantNodes(Node* whatReplace, Node* toReplace);
   void eraseFunction(Node* findNode);
-  Node* findMax(Node *node);
+  Node* findMax(Node* node);
+    Node* findMin(Node* node);
   void changeNodes(Node* findNode, Node* child);
   void deleteRebalance(Node* node);
   void deleteCase1(Node* node);
@@ -59,11 +70,10 @@ class Tree {
   void deleteCase4(Node* node);
   void deleteCase5(Node* node);
 
-  void videoRebalance(Node *findNode);
+  void videoRebalance(Node* findNode);
 
   void printHelper(Node* printNode, std::string indent, bool isRight);
   void freeTree();
-
 };
 
 }  // namespace s21

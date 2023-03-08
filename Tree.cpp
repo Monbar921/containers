@@ -7,7 +7,9 @@ Tree<T>::Tree() {}
 
 template <class T>
 Tree<T>::~Tree() {
-
+  printTree();
+  // std::cout << begin->data << "\n";
+  //   std::cout << end->data << "\n";
   freeTree();
   
 }
@@ -55,6 +57,18 @@ void Tree<T>::insert(const T& value) {
     }
     insertRebalance(node);
     treeSize++;
+    // if(treeSize == 1){
+    //   begin = node;
+    //   end = node;
+    // } else {
+    //   std::cout << "start " <<  node->data << " " << begin->data << "\n";
+    //   if(node->data <= begin->data){
+    //     begin = node;
+    //   } else if (node->data >= end->data) {
+    //     end = node;
+    //   }
+    //     std::cout << "finish " <<  node->data << " " << begin->data << "\n\n";
+    // }
   } else {
     if (node != nullptr) {
       delete node;
@@ -192,6 +206,7 @@ void Tree<T>::rotateTreeRight(Node *node) {
   }
   node->parent = pivot;
   pivot->right = node;
+  std::cout << node->data << " 1111" << "\n";
 }
 
 template <class T>
@@ -216,6 +231,11 @@ void Tree<T>::erase(T key) {
       treeSize--;
       if(treeSize == 0) {
         root = nullptr;
+        begin = end = nullptr;
+      } else {
+
+        // begin = findMin(root);
+        // end = findMax(root);
       }
     }
   }
@@ -252,6 +272,7 @@ void Tree<T>::deleteCase2(Node *node) {
       ((sibling->left == nullptr || sibling->left->color == BLACK) &&
        (sibling->right == nullptr || sibling->right->color == BLACK))) {
     sibling->color = RED;
+    
     deleteRebalance(node->parent);
   } else {
     deleteCase3(node);
@@ -280,12 +301,14 @@ void Tree<T>::deleteCase4(Node *node) {
         (sibling->right == nullptr || sibling->right->color == BLACK) &&
         sibling->left->color == RED) {
       sibling->color = RED;
-      sibling->left->color = BLACK;
+
       rotateTreeRight(sibling);
     } else if (node == node->parent->right && sibling->left->color == BLACK &&
                sibling->right->color == RED) {
       sibling->color = RED;
       sibling->right->color = BLACK;
+      sibling->left->color = BLACK;
+
       rotateTreeLeft(sibling);
     }
   }
@@ -299,9 +322,11 @@ void Tree<T>::deleteCase5(Node *node) {
   node->parent->color = BLACK;
   if (node == node->parent->left) {
     sibling->right->color = BLACK;
+    
     rotateTreeLeft(node->parent);
   } else {
     sibling->left->color = BLACK;
+    
     rotateTreeRight(node->parent);
   }
 }
@@ -314,7 +339,7 @@ void Tree<T>::eraseFunction(Node *findNode) {
 
       deleteRebalance(findNode);
     }
-    std::cerr << findNode->data << "\n";
+    
     if(parent == nullptr){
       deleteNode(&findNode);
     }else if (findNode == parent->left) {
@@ -361,6 +386,17 @@ typename Tree<T>::Node *Tree<T>::findMax(Node *node) {
   Node *temp = node;
   while (temp->right != nullptr) {
     temp = temp->right;
+  }
+  return temp;
+}
+
+template <class T>
+typename Tree<T>::Node *Tree<T>::findMin(Node *node) {
+  Node *temp = node;
+  while (temp->left != nullptr) {
+            std::cout << "a " <<  temp->data << "\n\n";
+    temp = temp->left;
+            std::cout << "b " <<   temp->data << "\n\n";
   }
   return temp;
 }

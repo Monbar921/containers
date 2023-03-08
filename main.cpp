@@ -11,36 +11,37 @@ using namespace s21;
 
 int main() {
 
-  std::set<int> df;
-  df.insert(100);
-  df.insert(3);
-    df.insert(109);
-   for ( auto it = df.begin(); it != df.end(); it++ )
-        std::cout << *it << " ";
-  std::cout << df.size() << "\n";
+  // std::set<int> df;
+  // df.insert(100);
+  // df.insert(3);
+  //   df.insert(109);
+  //  for ( auto it = df.begin(); it != df.end(); it++ )
+  //       std::cout << *it << " ";
+  // std::cout << df.size() << "\n";
 
 
-  s21_set<int> ddd;
+  s21_set<int> tree;
 
-  std::cout << ddd.size() << "\n";
-    std::cout << ddd.empty() << "\n";
-  ddd.insert(100);
-  ddd.clear();
-  // ddd.erase(100);
-    std::cout << ddd.size() << "\n";
-    std::cout << ddd.empty() << "\n";
+  // std::cout << ddd.size() << "\n";
+  //   std::cout << ddd.empty() << "\n";
+  // ddd.insert(100);
+  // ddd.clear();
+  // // ddd.erase(100);
+  //   std::cout << ddd.size() << "\n";
+  //   std::cout << ddd.empty() << "\n";
 
   // Tree<int> tree;
   // // // tree.set(12);
   // // // std::cout << tree.max<int>(1, 2) << "\n";
-  // tree.insert(100);
+  tree.insert(100);
   // tree.erase(100);
-  // tree.insert(56);
-  // tree.insert(100);
-  // tree.insert(1009);
-  // tree.insert(12);
-  // tree.insert(3);
-  // tree.insert(55);
+  tree.insert(56);
+  tree.insert(100);
+  tree.insert(1009);
+  tree.insert(12);
+  tree.insert(3);
+  tree.insert(55);
+    tree.erase(1009);
   // // // tree.insert(5);
 
   // // // tree.erase(3);
