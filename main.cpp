@@ -11,11 +11,13 @@ using namespace s21;
 
 int main() {
 
-  // std::set<int> df;
-  // df.insert(100);
-  // df.insert(3);
-  // df.clear();
-  // std::cout << df.size() << "\n";
+  std::set<int> df;
+  df.insert(100);
+  df.insert(3);
+    df.insert(109);
+   for ( auto it = df.begin(); it != df.end(); it++ )
+        std::cout << *it << " ";
+  std::cout << df.size() << "\n";
 
 
   s21_set<int> ddd;

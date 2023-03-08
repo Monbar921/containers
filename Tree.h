@@ -22,7 +22,7 @@ class Tree {
   Tree();
   ~Tree();
 
-  void insert(T key);
+  void insert(const T& value);
   void erase(T key);
 
   void printTree();

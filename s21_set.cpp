@@ -8,8 +8,8 @@ s21_set<T>::s21_set() {
 }
 
 template <class T>
-void s21_set<T>::insert(T key) {
-    SetInterface<T>::tree.insert(key);    
+void s21_set<T>::insert(const T& value) {
+    SetInterface<T>::tree.insert(value);    
 }
 
 template <class T>

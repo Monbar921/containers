@@ -10,7 +10,7 @@ class SetInterface {
   friend class s21_set;
 
  public:
-  virtual void insert(T key) = 0;
+  virtual void insert(const T& value) = 0;
   virtual void erase(T key) = 0;
   virtual size_t size() = 0;
   virtual bool empty() = 0;

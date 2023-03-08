@@ -26,8 +26,8 @@ typename Tree<T>::Node *Tree<T>::initializeNode(Node *node, Node *nodeParent,
 }
 
 template <class T>
-void Tree<T>::insert(T key) {
-  Node *node = initializeNode(node, nullptr, nullptr, nullptr, key, RED);
+void Tree<T>::insert(const T& value) {
+  Node *node = initializeNode(node, nullptr, nullptr, nullptr, value, RED);
 
   Node *y = nullptr;
   Node *x = this->root;
