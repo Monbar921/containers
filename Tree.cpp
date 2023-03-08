@@ -436,4 +436,5 @@ void Tree<T>::freeTree() {
     delete root;
     root = nullptr;
   }
+  treeSize = 0;
 }
