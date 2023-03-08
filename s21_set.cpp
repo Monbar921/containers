@@ -26,3 +26,8 @@ template <class T>
 bool s21_set<T>::empty() {
     return (SetInterface<T>::tree.treeSize == 0) ? true : false;
 }
+
+template <class T>
+void s21_set<T>::clear() {
+    SetInterface<T>::tree.freeTree(); 
+}

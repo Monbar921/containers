@@ -7,7 +7,9 @@ Tree<T>::Tree() {}
 
 template <class T>
 Tree<T>::~Tree() {
+
   freeTree();
+  
 }
 
 template <class T>
@@ -432,5 +434,6 @@ void Tree<T>::freeTree() {
   }
   if (root != nullptr) {
     delete root;
+    root = nullptr;
   }
 }

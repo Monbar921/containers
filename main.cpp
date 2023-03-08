@@ -6,16 +6,25 @@
 
 using namespace s21;
 
-// #include <set>
+#include <set>
 // #include <iostream>
 
 int main() {
+
+  // std::set<int> df;
+  // df.insert(100);
+  // df.insert(3);
+  // df.clear();
+  // std::cout << df.size() << "\n";
+
+
   s21_set<int> ddd;
 
   std::cout << ddd.size() << "\n";
     std::cout << ddd.empty() << "\n";
   ddd.insert(100);
-  ddd.erase(100);
+  ddd.clear();
+  // ddd.erase(100);
     std::cout << ddd.size() << "\n";
     std::cout << ddd.empty() << "\n";
 

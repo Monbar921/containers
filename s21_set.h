@@ -11,6 +11,7 @@ class s21_set : public SetInterface<T> {
   void erase(T key) override;
   size_t size() override;
   bool empty() override;
+  void clear() override;
 
  private:
 };
