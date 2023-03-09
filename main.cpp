@@ -41,7 +41,7 @@ int main() {
   tree.insert(12);
   tree.insert(3);
   tree.insert(55);
-    tree.erase(1009);
+    // tree.erase(1009);
   // // // tree.insert(5);
 
   // // // tree.erase(3);
